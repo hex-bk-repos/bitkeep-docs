@@ -3,11 +3,16 @@ module.exports = (_ctx) => ({
   dest: 'docs/dist',
 
   locales: {
-    '/': {
+    '/guide/': {
       lang: 'en-US',
       title: 'BitKeep Docs',
       description: 'Developer documentation for BitKeep Wallet',
     },
+    '/guide/zh-cn/': {
+      lang: 'zh-CN',
+      title: 'BitKeep 文档',
+      description: 'BitKeep 钱包开发者文档'
+    }
   },
 
   head: [
@@ -37,13 +42,7 @@ module.exports = (_ctx) => ({
         rel: 'shortcut icon',
         href: '/bitkeep-icon.svg',
         color: '#3eaf7c',
-      },
-      'link',
-      {
-        rel: 'shortcut icon',
-        href: '/favicon.ico',
-        color: '#3eaf7c',
-        type:"image/x-icon"
+        type: 'image/x-icon'
       }
     ],
     [
@@ -62,6 +61,7 @@ module.exports = (_ctx) => ({
   themeConfig: {
     repo: 'bitkeepwallet/docs',
     docsDir: 'docs',
+    docsBranch: 'main',
     editLinks: true,
     logo: '/bitkeep-icon.svg',
     smoothScroll: true,
@@ -71,20 +71,94 @@ module.exports = (_ctx) => ({
       indexName: process.env.ALGOLIA_INDEX_NAME,
     },
     locales: {
-      '/': {
+      '/guide/': {
         label: 'English',
         selectText: 'Languages',
         editLinkText: 'Edit this page on GitHub',
         lastUpdated: 'Last Updated',
         nav: require('./nav/en'),
         sidebar: {
-          '/guide/': getGuideSidebar(
-            'Guide',
-            'DApp Development',
-            'Resources'
-          ),
+          '/guide/': [
+            {
+              title: 'Guide',
+              collapsable: false,
+              children: [
+                ''
+              ],
+            },
+            {
+              title: 'DApp Development',
+              collapsable: false,
+              children: [
+                'introduction',
+                'quickly',
+                'ethereum',
+                'tron',
+                'solana',
+                'terra',
+                'wallet-connect',
+                'bitkeep-chrome',
+                'open-source',
+                'switch-network-for-dapp',
+                'webview-function',
+                'apply-list-for-dapp',
+                'faq'
+              ],
+            },
+            {
+              title: 'Resources',
+              collapsable: false,
+              children: [
+                "resources"
+              ],
+            },
+          ],
         },
       },
+      '/guide/zh-cn/': {
+        label: '简体中文',
+        selectText: '选择语言',
+        editLinkText: '在 GitHub 上编辑',
+        lastUpdated: '最后更新',
+        nav: require('./nav/zh-cn'),
+        sidebar: {
+          '/guide/zh-cn': [
+            {
+              title: '手册',
+              collapsable: false,
+              children: [
+                'zh-cn/'
+              ],
+            },
+            {
+              title: 'DApp 开发',
+              collapsable: false,
+              children: [
+                // 'zh-cn/introduction',
+                // 'zh-cn/quickly',
+                // 'zh-cn/ethereum',
+                // 'zh-cn/tron',
+                // 'zh-cn/solana',
+                // 'zh-cn/terra',
+                // 'zh-cn/wallet-connect',
+                // 'zh-cn/bitkeep-chrome',
+                // 'zh-cn/open-source',
+                // 'zh-cn/switch-network-for-dapp',
+                // 'zh-cn/webview-function',
+                // 'zh-cn/apply-list-for-dapp',
+                // 'zh-cn/faq'
+              ],
+            },
+            {
+              title: '资源',
+              collapsable: false,
+              children: [
+                // "zh-cn/resources"
+              ],
+            },
+          ],
+        }
+      }
     },
   },
 
@@ -139,37 +213,6 @@ module.exports = (_ctx) => ({
 
   extraWatchFiles: ['.vuepress/nav/en.js'],
   markdown:{
-    lineNumbers:true
+    lineNumbers: true
   }
-
 });
-
-function getGuideSidebar(guide, dapp, resources) {
-  return [
-    {
-      title: guide,
-      collapsable: false,
-      children: [
-        ''
-      ],
-    },
-    {
-      title: dapp,
-      collapsable: false,
-      children: [
-        'connect-wallet-for-dapp',
-        'switch-network-for-dapp',
-        'webview-function',
-        'apply-list-for-dapp',
-        "faq"
-      ],
-    },
-    {
-      title: resources,
-      collapsable: false,
-      children: [
-        "resources"
-      ],
-    },
-  ];
-}
