@@ -3,11 +3,16 @@ module.exports = (_ctx) => ({
   dest: 'docs/dist',
 
   locales: {
-    '/': {
+    '/guide/': {
       lang: 'en-US',
       title: 'BitKeep Docs',
       description: 'Developer documentation for BitKeep Wallet',
     },
+    '/guide/zh-cn/': {
+      lang: 'zh-CN',
+      title: 'BitKeep 文档',
+      description: 'BitKeep 钱包开发者文档'
+    }
   },
 
   head: [
@@ -66,20 +71,81 @@ module.exports = (_ctx) => ({
       indexName: process.env.ALGOLIA_INDEX_NAME,
     },
     locales: {
-      '/': {
+      '/guide/': {
         label: 'English',
         selectText: 'Languages',
         editLinkText: 'Edit this page on GitHub',
         lastUpdated: 'Last Updated',
         nav: require('./nav/en'),
         sidebar: {
-          '/guide/': getGuideSidebar(
-            'Guide',
-            'DApp Development',
-            'Resources'
-          ),
+          '/guide/': [
+            {
+              title: 'Guide',
+              collapsable: false,
+              children: [
+                ''
+              ],
+            },
+            {
+              title: 'DApp Development',
+              collapsable: false,
+              children: [
+                "wallet/introduction",
+                "wallet/quickly",
+                "wallet/ethereum",
+                "wallet/tron",
+                "wallet/solana",
+                "wallet/walletconnet",
+                "wallet/bitkeep",
+                "wallet/aptos",
+                // 'connect-wallet-for-dapp',
+                'switch-network-for-dapp',
+                'webview-function',
+                // 'apply-list-for-dapp',
+                "faq"
+              ],
+            },
+            {
+              title: 'Resources',
+              collapsable: false,
+              children: [
+                "resources"
+              ],
+            },
+          ],
         },
       },
+      '/guide/zh-cn/': {
+        label: '简体中文',
+        selectText: '选择语言',
+        editLinkText: '在 GitHub 上编辑',
+        lastUpdated: '最后更新',
+        nav: require('./nav/zh-cn'),
+        sidebar: {
+          '/guide/zh-cn': [
+            {
+              title: '手册',
+              collapsable: false,
+              children: [
+                'zh-cn/'
+              ],
+            },
+            {
+              title: 'DApp 开发',
+              collapsable: false,
+              children: [
+              ],
+            },
+            {
+              title: '资源',
+              collapsable: false,
+              children: [
+                // "zh-cn/resources"
+              ],
+            },
+          ],
+        }
+      }
     },
   },
 
@@ -120,7 +186,6 @@ module.exports = (_ctx) => ({
             alternative: '/guide/',
           }
         ],
-       
       },
     ],
     [
@@ -138,47 +203,3 @@ module.exports = (_ctx) => ({
   }
 
 });
-
-function getGuideSidebar(guide, dapp, resources) {
-  return [
-    {
-      title: guide,
-      collapsable: false,
-      children: [
-        ''
-      ],
-    },
-    {
-      title: dapp,
-      collapsable: false,
-      children: [
-        // {
-        //   title: "Connect Wallet",
-        //   children:[
-           
-        //   ]
-        // },
-        "wallet/introduction",
-        "wallet/quickly",
-        "wallet/ethereum",
-        "wallet/tron",
-        "wallet/solana",
-        "wallet/walletconnet",
-        "wallet/bitkeep",
-        "wallet/aptos",
-        // 'connect-wallet-for-dapp',
-        'switch-network-for-dapp',
-        'webview-function',
-        // 'apply-list-for-dapp',
-        "faq" 
-      ],
-    },
-    {
-      title: resources,
-      collapsable: false,
-      children: [
-        "resources"
-      ],
-    },
-  ];
-}
